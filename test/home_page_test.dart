@@ -14,5 +14,15 @@ void main() {
 
     final ctr1 = find.text('1');
     expect(ctr1, findsNothing); //There is no 1
+
+    final incrementBtn = find.byType(FloatingActionButton);
+    await tester.tap(incrementBtn);
+    await tester.pump(); //setState
+
+    final ctr2 = find.text('1');
+    expect(ctr2, findsOneWidget); //There is 1 after tap on increment
+
+    final ctr3 = find.text('0');
+    expect(ctr3, findsNothing); //There is no 0
   });
 }

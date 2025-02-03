@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widget_test_demo/users/user_repo.dart';
 import 'package:widget_test_demo/users/user_screen.dart';
 
 void main() {
@@ -16,7 +17,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: HomeScreen(
+        futureUsers: UserRepository().fetchUsers(),
+      ),
     );
   }
 }

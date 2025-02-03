@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:widget_test_demo/users/user_model.dart';
-import 'package:widget_test_demo/users/user_repo.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final Future<List<UserModel>> futureUsers;
+
+  const HomeScreen({
+    super.key,
+    required this.futureUsers,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final UserRepository userRepository = UserRepository();
-  late Future<List<UserModel>> futureUsers;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    futureUsers = userRepository.fetchUsers();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("Users"),
       ),
       body: FutureBuilder(
-          future: futureUsers,
+          future: widget.futureUsers,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final List<UserModel> userList = snapshot.data!;
